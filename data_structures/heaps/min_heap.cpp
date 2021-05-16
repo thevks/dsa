@@ -1,6 +1,7 @@
 // A C++ program to demonstrate common Binary Heap Operations
-#include<iostream>
-#include<climits>
+#include <iostream>
+#include <climits>
+#include <vector>
 using namespace std;
 
 // Prototype of a utility function to swap two integers
@@ -9,15 +10,26 @@ void swap(int *x, int *y);
 // A class for Min Heap
 class min_heap
 {
+	public:
+
 	int *harr; // pointer to array of elements in heap
 	int capacity; // maximum possible size of min heap
 	int heap_size; // Current number of elements in min heap
-public:
+
 	// Constructor
 	min_heap(int capacity);
 
+	//Constructor with input array
+	min_heap(int array[], int n);
+
+	void build_heap();
+
+	void heap_sort();
+
 	// to heapify a subtree with the root at given index
 	void heapify(int );
+
+	void heapify_min(int i);
 
 	int parent(int i) { return (i-1)/2; }
 
@@ -60,6 +72,53 @@ min_heap::min_heap(int cap)
 	heap_size = 0;
 	capacity = cap;
 	harr = new int[cap];
+}
+
+min_heap::min_heap(int array[], int n)
+{
+	heap_size = capacity = n;
+	harr = array;	
+}
+
+void min_heap::build_heap()
+{
+	for (int i = heap_size / 2 - 1; i >= 0; i--)
+      heapify(i);	
+}
+
+void min_heap::heapify_min(int i)
+{
+	int n = heap_size;
+    int largest = i; // Initialize largest as root
+    int l = 2 * i + 1; // left = 2*i + 1
+    int r = 2 * i + 2; // right = 2*i + 2
+ 
+    // If left child is larger than root
+    if (l < n && harr[l] > harr[largest])
+        largest = l;
+ 
+    // If right child is larger than largest so far
+    if (r < n && harr[r] > harr[largest])
+        largest = r;
+ 
+    // If largest is not root
+    if (largest != i) {
+        swap(harr[i], harr[largest]);
+ 
+        // Recursively heapify the affected sub-tree
+        heapify_min(largest);
+    }
+}
+
+void min_heap::heap_sort()
+{
+	 // Heap sort
+    for (int i = heap_size - 1; i >= 0; i--) {
+      swap(harr[0], harr[i]);
+  
+      // Heapify root element to get highest element at root again
+      heapify_min(0);
+    }
 }
 
 // Inserts a new key 'k'
@@ -210,7 +269,7 @@ void swap(int *x, int *y)
 }
 
 // Driver program to test above functions
-int main()
+void function_1()
 {
 	min_heap h(11);
 
@@ -243,5 +302,29 @@ int main()
 
 	cout << h.get_min() << endl;
 
+	cout << "Heap elements before sorting " << endl;
+	h.print_heap_elemenets();
+	h.heap_sort();
+	cout << "Heap elements after sorting " << endl;
+	h.print_heap_elemenets();
+}
+
+void function_2()
+{
+	int array[] = {3, 2, 1, 15, 5, 4, 45, 11, 12, 20};
+	min_heap h(array, sizeof(array)/sizeof(array[0]));
+
+	cout << "Number of elements of array: " << h.heap_size << h.capacity << endl;
+	h.build_heap();
+	cout << "Heap elements before sorting " << endl;
+	h.print_heap_elemenets();
+	h.heap_sort();
+	cout << "Heap elements after sorting " << endl;
+	h.print_heap_elemenets();
+}
+
+int main(void)
+{
+	function_1();
 	return 0;
 }
