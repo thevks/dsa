@@ -31,6 +31,8 @@ class Solution {
 };
 
 int main() {
+
+		/*
     int t;
     cin >> t;
     while (t--) {
@@ -41,6 +43,13 @@ int main() {
         Solution ob;
         cout << ob.count(arr, m, n) << endl;
     }
+		*/
+
+		int n = 4, m = 3;
+		int arr[] = {1, 2, 3};
+
+		Solution ob;
+    cout << ob.count(arr, m, n) << endl;
 
     return 0;
 }  
