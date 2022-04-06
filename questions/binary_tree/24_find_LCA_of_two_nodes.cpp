@@ -12,6 +12,9 @@ Node *find_LCA(Node *root, Node *n1, Node *n2)
 	if (x and y) return root;
 	if (x) return x;
 	if (y) return y;
+
+	//This is also required - when NULL is returned for both child 
+	return NULL;
 }
 
 int main(void)
