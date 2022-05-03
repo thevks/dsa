@@ -1,3 +1,5 @@
+int diameter = 0;
+
 int diameter(Node *root)
 {
 
@@ -7,7 +9,7 @@ int diameter(Node *root)
 	int lh = diameter(root->left);
 	int rh = diameter(root->right);
 
-	diameter = max(diameter, max(lh,rh));
+	diameter = max(diameter, max(lh,rh) + 1);
 	
 	return 1 + max(lh, rh);
 }
