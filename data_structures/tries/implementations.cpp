@@ -95,5 +95,5 @@ int main(void)
   
   search(root, "abc") ? cout << "yes" : cout << "No" << endl; 
 
-  delete(root, "abc");
+  remove(root, "abc", 0);
 }
