@@ -36,7 +36,7 @@ bool search(TrieNode *root, string key)
   TrieNode *p = root;
   for (int i=0; i<key.length();i++)
   {
-    int index = key[i] - '0';
+    int index = key[i] - 'a';
     if (!p->children[index]) return false;
     
     p = p->children[index];
@@ -72,7 +72,7 @@ TrieNode *remove(TrieNode *root, string key, int depth)
     return root;      
   }
   
-  int index = key[depth] - '0';
+  int index = key[depth] - 'a';
   root->childern[index] = remove(root->childern[index], key, depth+1);
   
   if (isEmpty(root) and root->isEndWord) {
